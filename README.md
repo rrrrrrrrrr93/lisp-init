@@ -4,7 +4,7 @@ My cross-platform Common Lisp environment initialization script
 ## Usage
 
 1. Clone the repository into any local directory (I prefer `$HOME/Lisp/init`)
-2. Install Quicklisp by loading `quicklisp.lisp` (same as the one downloaded from [http://www.quicklisp.org] as 2017-9-17)
+2. Download and install Quicklisp from [https://beta.quicklisp.org/quicklisp.lisp]
 3. Create soft link from `init.lisp` to the initialization files of your Common Lisp platforms
 
 NOTE: on Windows, instead of creating soft links, I put a `(load "init.lisp")` with full pathname from initialization files of my CL platforms.
@@ -30,3 +30,7 @@ By default all files are in home directory, e.g. `$HOME/.lispworks`
 * LispWorks: `.lispworks`
 * Macintosh Common Lisp: `init.lisp` in MCL folder
 * SBCL: `.sbclrc`
+
+## Other useful scripts:
+
+* `save-lw.lisp` and `save-lw-motif.lisp`: LispWorks image building scripts

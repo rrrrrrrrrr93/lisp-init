@@ -1,6 +1,15 @@
 ;;;; -*- Mode: Lisp; -*-
+;;;; general load script for Common Lisp platforms
+
+(eval-when (:compile-toplevel)
+  (error "do not compile this file!"))
 
 (in-package :cl-user)
+
+(setf *print-pretty* t
+      *print-circle* t
+      *compile-verbose* t
+      *load-verbose* t)
 
 (defvar *system-homedir*
   (cond ((string= (machine-instance) "BINGHE-P70")	 #p"D:/")
@@ -31,7 +40,9 @@
 
 ;;; bootstrap newer ASDF
 #+(or lispworks5 lispworks6)
-(pushnew (merge-pathnames "Lisp/asdf/" *system-homedir*) asdf:*central-registry* :test #'equal)
+(pushnew (merge-pathnames "Lisp/asdf/" *system-homedir*)
+         asdf:*central-registry* :test #'equal)
+
 #+(or lispworks5 lispworks6)
 (asdf:load-system :asdf)
 
@@ -57,9 +68,12 @@
              "Lisp/maxima/current/src/"
              "Lisp/closette/"
              "Lisp/pcl/"
-             "Lisp/lockfree-containers/"
-             "Lisp/portable-threads/"))
+             "Lisp/portable-threads/"
+             #+cmu20b "Lisp/cmucl/20b/patch-000/"))
   (pushnew (merge-pathnames i *system-homedir*) asdf:*central-registry* :test #'equal))
+
+#+cmu20b
+(asdf:load-system :patch-000)
 
 (defparameter *cl-http-options*
   '((:CONFIGURE-AND-START . T)
@@ -77,25 +91,25 @@
     (:REMOTE-LISTENER . NIL)
     (:ENABLE . T)))
 
+#+(or sbcl clozure)
 (defun load-cl-http ()
-  #-lispworks
-  (progn
-    (load (merge-pathnames "Lisp/cl-http/contrib/kpoeck/port-template/load.lisp" *system-homedir*))
-    (funcall (intern "COMPILE-ALL" "CL-USER"))
-    (funcall (intern "START-EXAMPLES" "HTTP")))
-  #+lispworks
-  (progn
-    ;; Compile CL-HTTP
-    (load (merge-pathnames "Lisp/cl-http/lw/start.lisp" *system-homedir*))
-    ;; Rainer Joswig's UTF-8 patch
-    (when (sys:cdr-assoc :utf-8 *cl-http-options*)
-      (compile-file "HTTP:CONTRIB;RJOSWIG;UNICODE;CL-HTTP-UTF-8.LISP" :load t))
-    (when (sys:cdr-assoc :control-panel *cl-http-options*)
-      (compile-file "HTTP:LW;CONTRIB;RJOSWIG;CL-HTTP-CAPI.LISP" :load t)
-      (funcall (symbol-function (find-symbol "CONTROL-PANEL" :cl-http-capi))))
-    (when (sys:cdr-assoc :remote-listener *cl-http-options*)
-      (compile-file "HTTP:LW;CONTRIB;JCMA;REMOTE-LISTENER.LISP" :load t)
-      (funcall (symbol-function (find-symbol "ENABLE-RREP-SERVICE" :rrep))))))
+  (load (merge-pathnames "Lisp/cl-http/contrib/kpoeck/port-template/load.lisp" *system-homedir*))
+  (funcall (intern "COMPILE-ALL" "CL-USER"))
+  (funcall (intern "START-EXAMPLES" "HTTP")))
+
+#+lispworks
+(defun load-cl-http ()
+  ;; Compile CL-HTTP
+  (load (merge-pathnames "Lisp/cl-http/lw/start.lisp" *system-homedir*))
+  ;; Rainer Joswig's UTF-8 patch
+  (when (sys:cdr-assoc :utf-8 *cl-http-options*)
+    (compile-file "HTTP:CONTRIB;RJOSWIG;UNICODE;CL-HTTP-UTF-8.LISP" :load t))
+  (when (sys:cdr-assoc :control-panel *cl-http-options*)
+    (compile-file "HTTP:LW;CONTRIB;RJOSWIG;CL-HTTP-CAPI.LISP" :load t)
+    (funcall (symbol-function (find-symbol "CONTROL-PANEL" :cl-http-capi))))
+  (when (sys:cdr-assoc :remote-listener *cl-http-options*)
+    (compile-file "HTTP:LW;CONTRIB;JCMA;REMOTE-LISTENER.LISP" :load t)
+    (funcall (symbol-function (find-symbol "ENABLE-RREP-SERVICE" :rrep)))))
 
 #+cmu
 (pushnew :cl-http-ssl *features*)
@@ -117,21 +131,10 @@
 (defun load-cl-http ()
   (ext:load-foreign "/usr/lib/libcrypto.dylib")
   (ext:load-foreign "/usr/lib/libssl.dylib")
-  (load #p"/Users/binghe/Lisp/cl-http/cmucl/start.lisp"))
-
-(setf *print-pretty* t
-      *print-circle* t
-      *compile-verbose* t
-      *load-verbose* t)
-
-#+cmu20b
-(progn
-  (pushnew #p"/Users/binghe/Lisp/cmucl/20b/patch-000/"
-	   asdf:*central-registry* :test #'equal)
-  (asdf:load-system :patch-000))
+  (load (merge-pathnames "Lisp/cl-http/cmucl/start.lisp" *system-homedir*)))
 
 #+lispworks
 (load (make-pathname :name "lw" :type "lisp" :defaults *load-truename*))
 
 #+ignore
-(load #p"/Users/binghe/Lisp/init/g2.lisp")
+(load (make-pathname :name "g2" :type "lisp" :defaults *load-truename*))

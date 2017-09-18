@@ -1,5 +1,4 @@
-;;;; -*- Mode: Lisp -*-
-;;;; $Id: lw.lisp,v 1.4 2017/09/17 14:22:44 binghe Exp binghe $
+;;;; -*- Mode: Lisp; -*-
 ;;;; LispWorks-specific load script
 
 (eval-when (:compile-toplevel)

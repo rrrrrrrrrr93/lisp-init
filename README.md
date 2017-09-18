@@ -5,17 +5,17 @@ My cross-platform Common Lisp environment initialization script
 
 1. Clone the repository into any local directory (I prefer `$HOME/Lisp/init`)
 2. Download and install Quicklisp from [https://beta.quicklisp.org/quicklisp.lisp]
-3. Create soft link from `init.lisp` to the initialization files of your Common Lisp platforms
+3. Create soft link from `load.lisp` to the initialization files of your Common Lisp platforms
 
-NOTE: on Windows, instead of creating soft links, I put a `(load "init.lisp")` with full pathname from initialization files of my CL platforms.
+NOTE: on Windows, instead of creating soft links, I put a `(load "load.lisp")` with full pathname from initialization files of my CL platforms.
 
-4. Clone latest ASDF from [https://gitlab.common-lisp.net/asdf/asdf.git], put at `$HOME/Lisp/asdf` and build the final `asdf.lisp`. For old CL platforms, call `(recompile-asdf)` and explicitly load it in `init.lisp`, before initialize Quicklisp.
+4. Clone latest ASDF from [https://gitlab.common-lisp.net/asdf/asdf.git], put at `$HOME/Lisp/asdf` and build the final `asdf.lisp`. For old CL platforms, call `(recompile-asdf)` and explicitly load it in `load.lisp`, before initialize Quicklisp.
 
 ## Local ASDF projects
 
 There're two ways to make them ASDF-loadable:
 * Put the projects into Quicklisp's `local-projects` folder
-* Put them in `$HOME/Lisp` and modify `init.lisp` with an explicit list of them.
+* Put them in `$HOME/Lisp` and modify `load.lisp` with an explicit list of them.
 
 ## Name of initialization files for various Common Lisp platforms
 

@@ -46,15 +46,13 @@
 #+(or lispworks5 lispworks6)
 (asdf:load-system :asdf)
 
-;; #+abcl
-;; (setq ABCL-ASDF:*MVN-LIBS-DIRECTORY* #p"/sw64/share/maven/lib/")
-
 ;;; Setup Quicklisp again
 #+(or lispworks5 lispworks6)
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
   (when (probe-file quicklisp-init)
     (load quicklisp-init)))
 
+;;; Local ASDF repositories
 (dolist (i '("Lisp/asdf/"
 	     "Lisp/usocket/"
 	     "Lisp/cl-net-snmp/"

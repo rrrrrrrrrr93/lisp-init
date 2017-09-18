@@ -3,7 +3,7 @@ My cross-platform Common Lisp environment initialization script
 
 ## Usage
 
-1. Clone the repository into any local directory
+1. Clone the repository into any local directory (I prefer `$HOME/Lisp/init`)
 2. Install Quicklisp by loading `quicklisp.lisp` (same as the one downloaded from [http://www.quicklisp.org] as 2017-9-17)
 3. Create soft link from `init.lisp` to the initialization files of your Common Lisp platforms
 

@@ -25,7 +25,9 @@
 (setq *LISPWORKS-DIRECTORY*
       #P"/Applications/LispWorks 7.0 (64-bit)/lw70-ios")
 
-#+(and :lispworks5 :win32)
+(asdf:load-system :lw-add-ons)
+
+#+(and (or :lispworks5 :lispworks6 :lispworks7) :win32)
 (define-action "Initialize LispWorks Tools"
                "Dismiss Splash Screen Quickly"
   #'(lambda (screen)

@@ -66,7 +66,12 @@
              "Lisp/closette/"
              "Lisp/pcl/"
              "Lisp/portable-threads/"
-             #+cmu20b "Lisp/cmucl/20b/patch-000/"))
+             #+lispworks
+             "Lisp/init/lw-add-ons/"
+             #+lispworks
+             "Lisp/init/lw-doc/"
+             #+cmu20b
+             "Lisp/cmucl/20b/patch-000/"))
   (pushnew (merge-pathnames i *system-homedir*) asdf:*central-registry* :test #'equal))
 
 #+cmu20b

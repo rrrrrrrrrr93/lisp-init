@@ -53,12 +53,13 @@
     (load quicklisp-init)))
 
 ;;; Local ASDF repositories
-(dolist (i '("Lisp/usocket/"
-	     "Lisp/cl-net-snmp/"
+(dolist (i '("FBK/private/ltl-synthesis/"
+             "Lisp/usocket/"
+             "Lisp/cl-net-snmp/"
              "Lisp/SWCLOS/"
-	     "Lisp/OSCAR/"
-	     "Lisp/screamer/"
-	     "Lisp/GBBopen/"
+             "Lisp/OSCAR/"
+             "Lisp/screamer/"
+             "Lisp/GBBopen/"
              "Lisp/iolib/"
              "Lisp/cffi/"
              "Lisp/named-readtables/"

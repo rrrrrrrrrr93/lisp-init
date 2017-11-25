@@ -17,15 +17,13 @@
 (setf *file-encoding-detection-algorithm*
       (substitute 'latin-1-file-encoding
                   'locale-file-encoding
-		  *file-encoding-detection-algorithm*))
+                  *file-encoding-detection-algorithm*))
 
 (in-package :cl-user)
 
 #+ios-delivery
 (setq *LISPWORKS-DIRECTORY*
       #P"/Applications/LispWorks 7.0 (64-bit)/lw70-ios")
-
-(asdf:load-system :lw-add-ons)
 
 #+(and (or :lispworks5 :lispworks6 :lispworks7) :win32)
 (define-action "Initialize LispWorks Tools"
@@ -124,8 +122,8 @@
       (intern "INIT-JAVA-INTERFACE" "LW-JI")
       :jvm-library-path *java-library-path*
       :java-class-path (if class-paths
-			   (format nil "~S:~S" lispcalls class-paths)
-			 lispcalls))))
+                           (format nil "~S:~S" lispcalls class-paths)
+                         lispcalls))))
 
 (defparameter *jdk8-library-path*
   "/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/server/libjvm.dylib")
@@ -136,7 +134,7 @@
       (intern "INIT-JAVA-INTERFACE" "LW-JI")
       :jvm-library-path *jdk8-library-path*
       :java-class-path (if class-paths
-			   (format nil "~S:~S" lispcalls class-paths)
+                           (format nil "~S:~S" lispcalls class-paths)
                            lispcalls))))
 
 ) ; progn
@@ -149,3 +147,7 @@
     )
   (let ((*package* (find-package :cp-user)))
     (funcall (intern "ERQP" "COMMON-PROLOG"))))
+
+;; Optionally load LW-ADD-ONS
+#+ignore
+(ql:quickload :lw-add-ons)

@@ -25,12 +25,9 @@
               :remarks name
 	      :environment t))
 
-;;; KnowledgeWorks (plus SQL/ODBC)
+;;; KnowledgeWorks
 #+lispworks-64bit
-(require "kw-sql")
-
-#+lispworks-64bit
-(require "odbc")
+(require "kw")
 
 #+lispworks-64bit
 (let* ((name (format nil "KnowledgeWorks ~A~@[~A~]"

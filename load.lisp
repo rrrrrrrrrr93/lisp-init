@@ -29,9 +29,6 @@
 #+cmu
 (setq ext:*gc-verbose* nil)
 
-#+cmu
-(load (merge-pathnames "Lisp/asdf/build/asdf.sse2f" *system-homedir*))
-
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
 (let ((quicklisp-init (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
@@ -53,8 +50,7 @@
     (load quicklisp-init)))
 
 ;;; Local ASDF repositories
-(dolist (i '("FBK/private/ltl-synthesis/"
-             "Lisp/usocket/"
+(dolist (i '("Lisp/usocket/"
              "Lisp/cl-net-snmp/"
              "Lisp/SWCLOS/"
              "Lisp/OSCAR/"

@@ -17,7 +17,7 @@
 	(t
 	 (user-homedir-pathname))))
 
-(defun recompile-asdf ()
+(defun compile-asdf ()
   (compile-file (merge-pathnames "Lisp/asdf/build/asdf.lisp" *system-homedir*)))
 
 #+clisp
@@ -28,6 +28,9 @@
 
 #+cmu
 (setq ext:*gc-verbose* nil)
+
+#+cmu
+(load (merge-pathnames "Lisp/asdf/build/asdf.sse2f" *system-homedir*))
 
 ;;; The following lines added by ql:add-to-init-file:
 #-quicklisp
@@ -50,7 +53,8 @@
     (load quicklisp-init)))
 
 ;;; Local ASDF repositories
-(dolist (i '("Lisp/usocket/"
+(dolist (i '("FBK/CL-CUDD/"
+             "Lisp/usocket/"
              "Lisp/cl-net-snmp/"
              "Lisp/SWCLOS/"
              "Lisp/OSCAR/"
@@ -69,7 +73,8 @@
              "Lisp/init/lw-doc/"
              #+cmu20b
              "Lisp/cmucl/20b/patch-000/"))
-  (pushnew (merge-pathnames i *system-homedir*) asdf:*central-registry* :test #'equal))
+  (pushnew (merge-pathnames i *system-homedir*)
+           asdf:*central-registry* :test #'equal))
 
 #+cmu20b
 (asdf:load-system :patch-000)

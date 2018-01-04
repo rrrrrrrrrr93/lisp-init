@@ -20,6 +20,9 @@
 (defun compile-asdf ()
   (compile-file (merge-pathnames "Lisp/asdf/build/asdf.lisp" *system-homedir*)))
 
+#+(and sbcl freebsd)
+(load (merge-pathnames "Lisp/asdf/build/asdf.fasl" *system-homedir*))
+
 #+clisp
 (delete "~/lisp/**/" custom:*load-paths* :test 'equal)
 

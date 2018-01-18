@@ -88,7 +88,7 @@
 	 asdf:*central-registry* :test 'equal)
 
 (defun load-acl2 (&key force)
-  (cd #p"~/Lisp/acl2/v6-4/acl2-sources/")
+  (cd #p"~/Lisp/acl2/current/")
   (load "init.lisp")
   (when force
     (funcall (intern "COMPILE-ACL2" "ACL2")))
@@ -116,7 +116,7 @@
 (defparameter *java-library-path*
   "/System/Library/Frameworks/JavaVM.framework/JavaVM")
 
-(defun initialize-java (&optional class-paths)
+(defun load-java6 (&optional class-paths)
   (let ((lispcalls (namestring (lispworks-file "etc/lispcalls.jar"))))
     (funcall
       (intern "INIT-JAVA-INTERFACE" "LW-JI")
@@ -126,13 +126,25 @@
                          lispcalls))))
 
 (defparameter *jdk8-library-path*
-  "/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home/jre/lib/server/libjvm.dylib")
+  "/Library/Java/JavaVirtualMachines/jdk1.8.0_162.jdk/Contents/Home/jre/lib/server/libjvm.dylib")
 
-(defun initialize-jdk8 (&optional class-paths)
+(defun load-java8 (&optional class-paths)
   (let ((lispcalls (namestring (lispworks-file "etc/lispcalls.jar"))))
     (funcall
       (intern "INIT-JAVA-INTERFACE" "LW-JI")
       :jvm-library-path *jdk8-library-path*
+      :java-class-path (if class-paths
+                           (format nil "~S:~S" lispcalls class-paths)
+                           lispcalls))))
+
+(defparameter *jdk9-library-path*
+  "/Library/Java/JavaVirtualMachines/jdk-9.0.4.jdk/Contents/Home/lib/server/libjvm.dylib")
+
+(defun load-java9 (&optional class-paths)
+  (let ((lispcalls (namestring (lispworks-file "etc/lispcalls.jar"))))
+    (funcall
+      (intern "INIT-JAVA-INTERFACE" "LW-JI")
+      :jvm-library-path *jdk9-library-path*
       :java-class-path (if class-paths
                            (format nil "~S:~S" lispcalls class-paths)
                            lispcalls))))

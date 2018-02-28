@@ -3,9 +3,7 @@
 (load-all-patches)
 
 #+:cocoa
-(compile-file-if-needed
-  (sys:example-file "configuration/macos-application-bundle")
-  :load t)
+(example-compile-file "configuration/macos-application-bundle" :load t)
 
 #+(and cocoa lispworks6.0) ; needed in OS X 10.11+, now there're official patches
 (remhash "NSGlyphStorage" objc::*interned-protocols*)

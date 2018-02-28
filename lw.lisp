@@ -37,7 +37,7 @@
 (set-default-character-element-type 'simple-char)
 
 #+(and (not ios-delivery) asdf3 (not lispworks5))
-(load (example-compile-file "misc/asdf-integration.lisp"))
+(example-compile-file "misc/asdf-integration.lisp" :load t)
 
 #-ios-delivery
 (in-package :editor)

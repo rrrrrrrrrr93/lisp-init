@@ -3,9 +3,9 @@
 #+lispworks5
 (error "no need to use this script in LispWorks 5")
 
-(load-all-patches)
-
 (require "capi-motif")
+
+(load-all-patches)
 
 (let* ((name (format nil "LispWorks ~A~@[~A~]"
                      (lisp-implementation-version)
